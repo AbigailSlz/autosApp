@@ -1,0 +1,7 @@
+{
+  "name": "autosApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
