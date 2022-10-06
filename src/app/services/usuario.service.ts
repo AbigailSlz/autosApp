@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.prod';
 
 import { Storage } from '@ionic/storage-angular';
 import { NavController } from '@ionic/angular';
+import { RespuestaRegisto } from '../interfaces/interfaces';
 
 const URL = environment.url;
 
@@ -42,6 +43,31 @@ export class UsuarioService{
             this.token = null;
             this.storage.clear();
             resolve(false);
+          }
+
+        });
+
+    });
+  }
+
+
+  registro(data: { firstname: string, lastname: string, birthdate: string, email:string, password:string }) {
+
+    const datos = new FormData();
+    datos.append('firstname', data.firstname);
+    datos.append('lastname', data.lastname);
+    datos.append('birthdate', data.birthdate);
+    datos.append('email', data.email);
+    datos.append('password', data.password);
+
+    return new Promise<RespuestaRegisto>(resolve => {
+
+      this.http.post<RespuestaRegisto>(`${URL}/registro`, datos)
+        .subscribe(async ( resp: any ) => {
+          if (resp.response) {
+            resolve(resp);
+          } else {
+            resolve(resp);
           }
 
         });

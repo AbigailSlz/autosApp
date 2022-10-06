@@ -53,4 +53,8 @@ export class LoginPage implements OnInit {
     }
   }
 
+  paginaRegistro(){
+    this.navController.navigateRoot('/registro');
+  }
+
 }
