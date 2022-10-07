@@ -4,6 +4,7 @@ import { AutoService } from '../../services/auto.service';
 import { MarcasComponent } from '../../components/marcas/marcas.component';
 
 import { ModalController } from '@ionic/angular';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,9 @@ export class HomePage implements OnInit {
   habilitado = true;
   filtro: Marca[] = [];
 
-  constructor(private autoService: AutoService, public modalController: ModalController) { }
+  constructor( private autoService: AutoService,
+               public modalController: ModalController,
+               public usuarioService: UsuarioService) { }
 
 
   ngOnInit(): void {
@@ -97,5 +100,10 @@ export class HomePage implements OnInit {
       this.autos = [];
       this.siguientes(false, true);
     }
+  }
+
+  salir(){
+    this.autoService.paginaAutos = 0;
+    this.usuarioService.salir();
   }
 }

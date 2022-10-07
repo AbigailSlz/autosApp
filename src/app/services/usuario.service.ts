@@ -30,7 +30,6 @@ export class UsuarioService{
       this.http.post(`${URL}/login`, datos)
         .subscribe(async ( resp: any ) => {
 
-          console.log(resp);
 
           await this.storage.create();
 
@@ -108,6 +107,13 @@ export class UsuarioService{
       return Promise.resolve(false);
     }
 
+  }
+
+
+  salir() {
+    this.token   = null;
+    this.storage.clear();
+    this.navController.navigateRoot('/login', { animated: true });
   }
 
 
