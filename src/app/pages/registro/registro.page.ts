@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IonAccordionGroup, PopoverController, NavController } from '@ionic/angular';
 
@@ -12,7 +12,7 @@ import { UiServiceService } from '../../services/ui-service.service';
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage implements OnInit {
+export class RegistroPage {
 
   @ViewChild('accordionGroup', { static: true }) accordionGroup: IonAccordionGroup;
   registroForm: FormGroup;
@@ -28,22 +28,34 @@ export class RegistroPage implements OnInit {
     this.crearRegistroForm();
   }
 
-  ngOnInit() {
+
+  get patternStrings(){
+    return '[a-zA-ZñÑ ]{2,254}';
+  }
+
+  get patternEmail()
+  {
+    return '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$';
+  }
+
+  get patternPassword(){
+    return '(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$';
   }
 
   crearRegistroForm() {
     this.registroForm = this.fb.group({
-      firstname: ['', [Validators.required, Validators.pattern('[a-zA-ZñÑ ]{2,254}')]],
-      lastname: ['', [Validators.required, Validators.pattern('[a-zA-ZñÑ ]{2,254}')]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      firstname: ['', [Validators.required, Validators.pattern(this.patternStrings)]],
+      lastname: ['', [Validators.required, Validators.pattern(this.patternStrings)]],
+      email: ['', [Validators.required, Validators.pattern(this.patternEmail)]],
       birthdate: [this.fecha, [Validators.required]],
-      password: ['', [Validators.required, Validators.pattern('(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')]],
-      confirmpassword: ['', [Validators.required, Validators.pattern('(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$')]],
-
+      password: ['', [Validators.required, Validators.pattern(this.patternPassword)]],
+      confirmpassword: ['', [Validators.required, Validators.pattern(this.patternPassword)]],
     }, {
       validators: this.validadores.passwordsIguales('password', 'confirmpassword')
     });
   }
+
+
 
   async registro() {
 
@@ -89,6 +101,5 @@ export class RegistroPage implements OnInit {
     const nativeEl = this.accordionGroup;
     nativeEl.value = undefined;
   };
-
 
 }

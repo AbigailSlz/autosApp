@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 import { Storage } from '@ionic/storage-angular';
 import { NavController } from '@ionic/angular';
@@ -29,6 +29,8 @@ export class UsuarioService{
 
       this.http.post(`${URL}/login`, datos)
         .subscribe(async ( resp: any ) => {
+
+          console.log(resp);
 
           await this.storage.create();
 

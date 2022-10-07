@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://apifrontend.ingeniat.com/proyectoCandidatos/'
+  url: 'https://apifrontend.ingeniat.com/proyectoCandidatos'
 };
 
 /*
