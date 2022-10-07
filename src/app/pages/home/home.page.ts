@@ -30,9 +30,10 @@ export class HomePage implements OnInit {
 
   // Actualiza el arreglo de autos al realizar el pull to refresh
   recargar(event) {
-    this.siguientes(event, true);
+    this.filtro = [];
     this.habilitado = true;
     this.autos = [];
+    this.siguientes(event, true);
   }
 
   /* Obtiene la lista de autos a través del servicio y los agrega al arreglo;
