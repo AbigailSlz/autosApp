@@ -93,7 +93,8 @@ export class RegistroPage {
   }
 
   cambioFecha(event: any) {
-    this.registroForm.controls['birthdate'].setValue(event.detail.value);
+    console.log(event);
+    this.fecha = event.detail.value;
   }
 
   //Ocultar el acordeón al perder foco
